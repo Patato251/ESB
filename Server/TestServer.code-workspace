@@ -1,11 +1,8 @@
 {
 	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "Js_Files"
-		}
-	],
+    {
+      "path": "."
+    }
+  ],
 	"settings": {}
 }

@@ -17,6 +17,7 @@ var handle = {};
 
 /* Object in Javascript is associated with a pairing of strings and numbers and functions
  * therefore allowing us to have methods within an object similarly to other OOP languages
+ # In this case, each respective parameter of the array handle, leads to a function from request handlers
  */  
 handle["/"] = requestHandlers.start;
 handle["/start"] = requestHandlers.start;
