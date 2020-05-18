@@ -15,7 +15,7 @@ function start(response) {
 
   var content = "empty";
 
-  exec("find /", { timeout: 10000, maxbuffer: 2000*1024}, 
+  exec("ls -lah", { timeout: 10000, maxbuffer: 2000*1024}, 
     function (error, stdout, stderr) {
       response.writeHead(200, {"Content-Type": "text/plain"});
       response.write(stdout);
