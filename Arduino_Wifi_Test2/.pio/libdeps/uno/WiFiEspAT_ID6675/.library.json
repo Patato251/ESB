@@ -1,0 +1,54 @@
+{
+    "description": "Enables network connection with esp8266 as network adapter.", 
+    "repository": {
+        "url": "https://github.com/jandrassy/WiFiEspAT", 
+        "type": "git"
+    }, 
+    "platforms": [
+        "atmelavr", 
+        "atmelmegaavr", 
+        "atmelsam", 
+        "espressif32", 
+        "espressif8266", 
+        "gd32v", 
+        "infineonxmc", 
+        "intel_arc32", 
+        "kendryte210", 
+        "microchippic32", 
+        "nordicnrf51", 
+        "nordicnrf52", 
+        "ststm32", 
+        "ststm8", 
+        "teensy", 
+        "timsp430"
+    ], 
+    "export": {
+        "exclude": [
+            "extras", 
+            "docs", 
+            "tests", 
+            "test", 
+            "*.doxyfile", 
+            "*.pdf"
+        ], 
+        "include": null
+    }, 
+    "authors": [
+        {
+            "maintainer": true, 
+            "name": "Juraj Andrassy", 
+            "url": null, 
+            "email": "juraj.andrassy@gmail.com"
+        }
+    ], 
+    "keywords": [
+        "communication"
+    ], 
+    "id": 6675, 
+    "name": "WiFiEspAT", 
+    "frameworks": [
+        "arduino"
+    ], 
+    "version": "1.1.2", 
+    "homepage": null
+}

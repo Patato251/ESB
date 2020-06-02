@@ -1,0 +1,65 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "C:/Users/Patrick Le/.platformio/lib/Adafruit BusIO_ID6214",
+                "C:/Users/Patrick Le/.platformio/lib/Adafruit MQTT Library_ID1092",
+                "C:/Users/Patrick Le/.platformio/lib/Adafruit VEML7700 Library_ID6219",
+                "C:/Users/Patrick Le/.platformio/lib/ESPAsyncWebServer-esphome_ID6758/src",
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "c:/Users/Patrick Le/Desktop/ESB/Code/ESB/ESP8266-ESP01-Test2/include",
+                "c:/Users/Patrick Le/Desktop/ESB/Code/ESB/ESP8266-ESP01-Test2/src",
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/variants/standard",
+                "C:/Users/Patrick Le/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "C:/Users/Patrick Le/.platformio/lib/Adafruit BusIO_ID6214",
+                    "C:/Users/Patrick Le/.platformio/lib/Adafruit MQTT Library_ID1092",
+                    "C:/Users/Patrick Le/.platformio/lib/Adafruit VEML7700 Library_ID6219",
+                    "C:/Users/Patrick Le/.platformio/lib/ESPAsyncWebServer-esphome_ID6758/src",
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "c:/Users/Patrick Le/Desktop/ESB/Code/ESB/ESP8266-ESP01-Test2/include",
+                    "c:/Users/Patrick Le/Desktop/ESB/Code/ESB/ESP8266-ESP01-Test2/src",
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/Patrick Le/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "C:/Users/Patrick Le/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=40303",
+                "ARDUINO_AVR_UNO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "C:/Users/Patrick Le/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
