@@ -9,11 +9,19 @@
  */
 
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
-#define GPSBAUD 115200
+#define RedPin 10
+#define BluePin 9
+#define GreenPin 11
 
-void gpsSetup();
+void rgbSetup();
 
-void gpsLoop();
+void setColour (int redValue, int greenValue, int blueValue);
 
+void rgbTestSet();
+
+void rgbRedSet();
+
+void rgbGreenSet();
+
+void rgbBlueSet();

@@ -8,14 +8,19 @@
  *  @date 27-04-2020
  */
 
-#include "Lux_Sensor.hpp"
+#include "LuxSensor.hpp"
+
+Adafruit_VEML7700 veml = Adafruit_VEML7700();
 
 void luxSetup() {
+  
   Serial.println("Adafruit VEML7700 Test");
+
   if (!veml.begin()) {
     Serial.println("Sensor not found");
     while (1);
   }
+  
   Serial.println("Sensor found");
 
   veml.setGain(VEML7700_GAIN_1);
@@ -28,6 +33,7 @@ void luxSetup() {
     case VEML7700_GAIN_1_4: Serial.println("1/4"); break;
     case VEML7700_GAIN_1_8: Serial.println("1/8"); break;
   }
+  
   Serial.print(F("Integration Time (ms): "));
   switch (veml.getIntegrationTime()) {
     case VEML7700_IT_25MS: Serial.println("25"); break;
@@ -37,15 +43,13 @@ void luxSetup() {
     case VEML7700_IT_400MS: Serial.println("400"); break;
     case VEML7700_IT_800MS: Serial.println("800"); break;
   }
+  
   veml.setLowThreshold(10000);
   veml.setHighThreshold(20000);
   veml.interruptEnable(true);
 }
 
-void luxRead() {
-  Serial.print("Lux: "); 
-  Serial.println(veml.readLux());
- 
+float luxRead() {
   uint16_t irq = veml.interruptStatus();
   if (irq & VEML7700_INTERRUPT_LOW) {
     Serial.println("** Low threshold"); 
@@ -54,4 +58,8 @@ void luxRead() {
     Serial.println("** High threshold"); 
   }
   delay(500);
+
+  // Serial.print("Lux: "); 
+  // Serial.println(veml.readLux());
+  return veml.readLux();
 }
