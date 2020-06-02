@@ -1,13 +1,10 @@
 
 #include <Arduino.h>
-// #include <WiFiEsp.h>
-// #include <WiFiEspClient.h>
-// #include <WiFiEspUdp.h>
 #include "SoftwareSerial.h"
 #include <PubSubClient.h>
 #include <WiFiEspAT.h>
 
-IPAddress server(161, 35, 2, 212);
+IPAddress serverIp(161, 35, 2, 212);
 char ssid[] = "OPTUS_385454";           // your network SSID (name)
 char pass[] = "gemmymiffy66521";           // your network password
 int status = WL_IDLE_STATUS;   // the Wifi radio's status
@@ -17,7 +14,11 @@ WiFiClient espClient;
 
 PubSubClient client(espClient);
 
-SoftwareSerial soft(2,3); // RX, TX
+SoftwareSerial espDevice(2,3); // RX, TX
+
+// Variable Declaration
+
+uint8_t Status = 0;
 
 // Function declarations
 void callback(char* topic, byte* payload, unsigned int length);
@@ -28,9 +29,9 @@ void setup() {
   // initialize serial for debugging
   Serial.begin(9600);
   // initialize serial for ESP module
-  soft.begin(9600);
+  espDevice.begin(9600);
   // initialize ESP module
-  WiFi.init(&soft);
+  WiFi.init(&espDevice);
 
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED) {
@@ -42,8 +43,8 @@ void setup() {
     status = WiFi.begin(ssid, pass);
   }
 
-  //connect to MQTT server
-  client.setServer(server, 1883);
+  //connect to MQTT server and setup callback function for use in receiving and sending messages
+  client.setServer(serverIp, 1883);
   client.setCallback(callback);
 }
 
@@ -78,9 +79,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   Serial.println("Messaged relayed to patpub");
 
-  client.publish("patout", (char*)payload);
-  // client.publish("patout", (char*)copy)
+  // client.publish("patout", (char*)payload);
+  client.publish("patout", copy, length);
   client.publish("patout", "Subscribe Sucessful");
+
+  // Free memory allocation of temp buffer for transitional period
+  free(copy);
 }
 
 void reconnect() {
