@@ -59,12 +59,16 @@ void loop() {
 
 //print any message received for subscribed topic
 void callback(char* topic, byte* payload, unsigned int length) {
+  
+  byte* copy = (byte*)malloc(length);
 
   // Print in terminal when receiving from a certain topic/the subscribed topic
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
   
+  memcpy(copy,payload,length);
+
   // Print payload into terminal
   Serial.println();
   for (int i=0; i < length; i++) {
@@ -75,6 +79,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println("Messaged relayed to patpub");
 
   client.publish("patout", (char*)payload);
+  // client.publish("patout", (char*)copy)
   client.publish("patout", "Subscribe Sucessful");
 }
 
