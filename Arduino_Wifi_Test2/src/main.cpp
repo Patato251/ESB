@@ -1,79 +1,50 @@
+
 #include <Arduino.h>
-#include <WiFiEsp.h>
-#include <WiFiEspClient.h>
-#include <WiFiEspUdp.h>
+// #include <WiFiEsp.h>
+// #include <WiFiEspClient.h>
+// #include <WiFiEspUdp.h>
 #include "SoftwareSerial.h"
 #include <PubSubClient.h>
-#include <Wire.h>
-#include <EEPROM.h>
-
+#include <WiFiEspAT.h>
 
 IPAddress server(161, 35, 2, 212);
 char ssid[] = "OPTUS_385454";           // your network SSID (name)
 char pass[] = "gemmymiffy66521";           // your network password
 int status = WL_IDLE_STATUS;   // the Wifi radio's status
 
-// Initialize the Ethernet client object
-WiFiEspClient espClient;
+// Initiliase ESP Device for mqtt usage
+WiFiClient espClient;
 
 PubSubClient client(espClient);
 
 SoftwareSerial soft(2,3); // RX, TX
 
-//print any message received for subscribed topic
-void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i=0; i <length;i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
-}
+// Function declarations
+void callback(char* topic, byte* payload, unsigned int length);
+void reconnect();
+
 
 void setup() {
   // initialize serial for debugging
-  Serial.begin(115200);
+  Serial.begin(9600);
   // initialize serial for ESP module
-  soft.begin(115200);
+  soft.begin(9600);
   // initialize ESP module
   WiFi.init(&soft);
 
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED) {
+
     Serial.print("Attempting to connect to WPA SSID: ");
     Serial.println(ssid);
+    
     // Connect to WPA/WPA2 network
     status = WiFi.begin(ssid, pass);
   }
 
-  // you're connected now, so print out the data
-  Serial.println("You're connected to the network");
-
   //connect to MQTT server
   client.setServer(server, 1883);
   client.setCallback(callback);
-}
-
-void reconnect() {
-  // Loop until we're reconnected
-  while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    // Attempt to connect, just a name to identify the client
-    if (client.connect("arduinoClient")) {
-      Serial.println("connected");
-      // Once connected, publish an announcement...
-      client.publish("command","hello world");
-      // ... and resubscribe
-      client.subscribe("presence");
-    } else {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
-      delay(5000);
-    }
-  }
 }
 
 void loop() {
@@ -83,4 +54,47 @@ void loop() {
   }
   client.loop();
 }
+
+//print any message received for subscribed topic
+void callback(char* topic, byte* payload, unsigned int length) {
+  
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  
+  for (int i=0; i < length;i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    
+    Serial.println("Attempting MQTT connection...");
+    
+    // Attempt to connect, just a name to identify the client
+    if (client.connect("arduinoClient")) {
+      Serial.println("connected");
+      
+      // Once connected, publish an announcement...
+      client.publish("pattest","Arduino has successfully sent a message");
+      
+      // ... and resubscribe
+      client.subscribe("Received ");
+    } 
+    
+    else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
+
+
 
