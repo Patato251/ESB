@@ -52,20 +52,30 @@ void loop() {
   if (!client.connected()) {
     reconnect();
   }
+  
   client.loop();
+
 }
 
 //print any message received for subscribed topic
 void callback(char* topic, byte* payload, unsigned int length) {
-  
+
+  // Print in terminal when receiving from a certain topic/the subscribed topic
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
   
-  for (int i=0; i < length;i++) {
+  // Print payload into terminal
+  Serial.println();
+  for (int i=0; i < length; i++) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
+
+  Serial.println("Messaged relayed to patpub");
+
+  client.publish("patout", (char*)payload);
+  client.publish("patout", "Subscribe Sucessful");
 }
 
 void reconnect() {
@@ -75,14 +85,14 @@ void reconnect() {
     Serial.println("Attempting MQTT connection...");
     
     // Attempt to connect, just a name to identify the client
-    if (client.connect("arduinoClient")) {
+    if (client.connect("ArduinoClient")) {
       Serial.println("connected");
       
       // Once connected, publish an announcement...
-      client.publish("pattest","Arduino has successfully sent a message");
+      client.publish("patout","Arduino has successfully connected");
       
       // ... and resubscribe
-      client.subscribe("Received ");
+      client.subscribe("patin");
     } 
     
     else {
