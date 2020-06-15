@@ -4,6 +4,7 @@
 #include "LuxSensor.hpp"
 #include "GPS.hpp"
 #include "espwifi.hpp"
+#include <math.h>
 
 #define DEFAULT_BAUD 9600
 
@@ -45,11 +46,15 @@ void setup() {
   WiFi.init(&espDevice);
   // Connect to WPA/WPA2 network
   status = WiFi.begin(ssid, pass);
+
+  // STUCK IN THIS LOOP HERE??? WHY???
+
   // Attempt to connect to WiFi network
   while ( status != WL_CONNECTED) {
     Serial.println("Attempting to connect");
-
+    delay(1000);
   }
+
   Serial.println("Successfully Connected to Wifi");
 
   //connect to MQTT server and setup callback function for use in receiving and sending messages
@@ -99,7 +104,7 @@ void reconnect() {
       Serial.println("connected");
       
       // Once connected, publish an announcement...
-      client.publish("patout","Arduino has successfully connected");
+      client.publish("patout","Arduino has successfully connected to the topic");
       
       // ... and resubscribe
       client.subscribe("patin");
@@ -130,4 +135,16 @@ void loop () {
   }
 
   client.loop();
+}
+
+
+double distanceCalculator(double long1, double lat1, double long2, double lat2) {
+  double diffLong = long1 - long2;
+  double diffLat = lat1 - lat2;
+
+  double temp1 = pow((sin(diffLat/2)), 2) + (cos(lat1) * cos(lat2) * pow((sin(diffLong/2)), 2));
+  double temp2 = 2 * atan2(sqrt(temp1), sqrt(1-temp1)); 
+  double distance = 6367 * temp2; // Note 6367 = Radius in Km
+
+  return distance;
 }
