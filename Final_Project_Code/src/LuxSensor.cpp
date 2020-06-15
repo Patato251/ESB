@@ -59,7 +59,5 @@ float luxRead() {
   }
   delay(500);
 
-  // Serial.print("Lux: "); 
-  // Serial.println(veml.readLux());
   return veml.readLux();
 }
