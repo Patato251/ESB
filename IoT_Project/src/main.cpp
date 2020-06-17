@@ -3,10 +3,12 @@
 #include "RGB.hpp"
 #include "Lux_Sensor.hpp"
 
+float luxValue;
+
 void setup() {
   while (!Serial) { delay(10); }
   
-  Serial.begin(115200);
+  Serial.begin(9600);
   luxSetup();
   rgbSetup();
   Serial.println("Initialisaiton Successful");
@@ -15,12 +17,12 @@ void setup() {
 
 void loop () {
   // Read the required value from the Lux Sensor
-  luxRead();
+  luxValue = luxRead();
 
   /* Determine the state in which the spot is currently */
 
   // Occupied Spot 
-  if (veml.readLux() < THRESHOLD) {
+  if (luxValue < THRESHOLD) {
     rgbRedSet();
   }
   // Vacant Spot

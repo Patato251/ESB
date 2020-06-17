@@ -10,6 +10,8 @@
 
 #include "Lux_Sensor.hpp"
 
+Adafruit_VEML7700 veml = Adafruit_VEML7700();
+
 void luxSetup() {
   Serial.println("Adafruit VEML7700 Test");
   if (!veml.begin()) {
@@ -42,9 +44,9 @@ void luxSetup() {
   veml.interruptEnable(true);
 }
 
-void luxRead() {
-  Serial.print("Lux: "); 
-  Serial.println(veml.readLux());
+float luxRead() {
+  // Serial.print("Lux: "); 
+  // Serial.println(veml.readLux());
  
   uint16_t irq = veml.interruptStatus();
   if (irq & VEML7700_INTERRUPT_LOW) {
@@ -54,4 +56,6 @@ void luxRead() {
     Serial.println("** High threshold"); 
   }
   delay(500);
+
+  return veml.readLux();
 }

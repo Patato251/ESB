@@ -11,8 +11,6 @@
 #include "Adafruit_VEML7700.h"
 #define THRESHOLD 35
 
-Adafruit_VEML7700 veml = Adafruit_VEML7700();
-
 void luxSetup();
 
-void luxRead();
+float luxRead();
