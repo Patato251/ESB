@@ -29,7 +29,9 @@ const char ssid[] = "OPTUS_385454";    // your network SSID (name)
 const char pass[] = "gemmymiffy66521"; // your network password
 int status = WL_IDLE_STATUS;           // the Wifi radio's status
 
-const char condition[] = "Occupied";
+const char occupied[] = "Occupied";
+const char vacant[] = "Vacant";
+const char coordinates[] = "{\"longitude\": 150.901752, \"latitude\": -33.941}";
 
 /****************************************************************/
 void setup()
@@ -57,9 +59,6 @@ void setup()
   {
     // Connect to WPA/WPA2 network
     Serial.println("Attempting to connect");
-    delay(500);
-
-
   }
 
   Serial.println("Successfully Connected to Wifi");
@@ -116,7 +115,8 @@ void reconnect()
 
       // Once connected, publish an announcement...
       client.publish("patout", "Arduino has successfully connected to the topic");
-
+      client.publish("coords", coordinates);
+      Serial.println("Coordinates Have been Sent to Server");
       // ... and resubscribe
       client.subscribe("patin");
     }
@@ -135,9 +135,10 @@ void loop()
 
   
   // Read the required value from the Lux Sensor
-  luxValue = luxRead();
+  // luxValue = luxRead();
 
-  // luxValue = 20;
+  // Fake data representing Lux Values
+  luxValue = 20;
   // luxValue = 100;
 
   /* Determine the state in which the spot is currently */
@@ -145,14 +146,14 @@ void loop()
   if (luxValue < THRESHOLD)
   {
     rgbRedSet();
-  
-      client.publish("patout", condition);
+    client.publish("coords", coordinates);
   }
 
   // Vacant Spot
   else
   {
     rgbGreenSet();
+    client.publish("patout", vacant);
   }
   client.loop();
 }

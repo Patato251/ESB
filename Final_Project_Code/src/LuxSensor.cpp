@@ -46,7 +46,7 @@ void luxSetup() {
   
   veml.setLowThreshold(10000);
   veml.setHighThreshold(20000);
-  veml.interruptEnable(false);
+  veml.interruptEnable(true);
 }
 
 float luxRead() {
